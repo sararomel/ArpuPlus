@@ -1,0 +1,24 @@
+@import 'abstracts';
+:host {
+  display: block;
+  width: 100%;
+}
+.footer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: color('primary');
+
+  &__logo {
+    width: 20rem;
+  }
+  &__description {
+    width: 80%;
+  }
+  &__nav-link {
+    text-transform: uppercase;
+  }
+  &__social-link {
+    text-transform: uppercase;
+    padding-inline-end: 1rem;
+  }
+}

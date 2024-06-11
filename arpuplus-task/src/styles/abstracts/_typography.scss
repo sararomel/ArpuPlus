@@ -1,0 +1,72 @@
+@use 'sass:map';
+@import '../abstracts/functions';
+
+$_fonts: (
+  'display-en': '"dummy-display-en", serif',
+  'display-ar': '"dummy-display-ar", sans-serif',
+
+  'headline-en': '"dummy-headline-en", sans-serif',
+  'headline-ar': '"dummy-headling-ar", sans-serif',
+
+  'title-en': '"dummy-title-en", sans-serif',
+  'title-ar': '"dummy-title-ar", sans-serif',
+
+  'body-en': '"dummy-body-en", sans-serif',
+  'body-ar': '"dummy-bofy-ar", sans-serif',
+
+  'label-en': '"dummy-label-en", sans-serif',
+  'label-ar': '"dummy-label-ar", sans-serif',
+
+  'placeholder-en': '"placeholder-ar", sans-serif',
+  'placeholder-ar': '"placeholder-ar", sans-serif',
+);
+
+// Those variables are calculated and added in app.component based on current language
+$fonts: (
+  'display': var(--font-display),
+  'headline': var(--font-headline),
+  'title': var(--font-title),
+  'body': var(--font-body),
+  'label': var(--font-label),
+  'placeholder': var(--font-placeholder),
+);
+
+// -------------------------------
+
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semiBold: 600;
+$fw-bold: 700;
+
+@function font($font) {
+  @if not map.has-key($fonts, $font) {
+    @error ('Font #{$font} Not Found!! ');
+  }
+  @return map.get($fonts, $font);
+}
+
+@mixin font($font, $size, $weight: $fw-regular, $important: false) {
+  @if $important == false {
+    font-family: font($font);
+  }
+  @if $important == true {
+    font-family: font($font) !important;
+  }
+  font-size: #{toRem($size)};
+  font-weight: $weight;
+}
+
+// The underscore as the name clash with Bootstrap font-sizes map
+$_font-sizes: ();
+
+@for $i from 12 through 50 {
+  $_font-sizes: map.set($_font-sizes, '#{$i}', toRem($i));
+}
+
+@function fs($size) {
+  @if not map.has-key($_font-sizes, $size) {
+    @error ('Size #{$size} Not Found!! ');
+  }
+  @return map.get($_font-sizes, $size);
+}
